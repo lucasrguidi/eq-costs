@@ -12,6 +12,8 @@ body {
   height: 100vh;
   font-family: 'Poppins', sans-serif;
 }
+
+
 `;
 
 export default GlobalStyle;

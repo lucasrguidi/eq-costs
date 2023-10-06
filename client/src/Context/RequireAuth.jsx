@@ -4,10 +4,9 @@ import { AuthContext } from './AuthContext';
 import UserService from '../Services/UserService';
 import { toast } from 'react-toastify';
 
-const userService = new UserService();
-
 export const RequireAuth = ({ children }) => {
   const navigate = useNavigate();
+  const userService = UserService();
   const { setUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
 
@@ -17,10 +16,8 @@ export const RequireAuth = ({ children }) => {
       const userData = await userService.validateToken(localStorage.getItem('access_token'));
       if (userData) {
         setUser({
-          id: userData.id,
           name: userData.name,
           email: userData.email,
-          avatar: userData.avatar,
         });
       }
     } catch (error) {
@@ -32,7 +29,9 @@ export const RequireAuth = ({ children }) => {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem('access_token')) return navigate('/login');
+    if (!localStorage.getItem('access_token')) {
+      return navigate('/login');
+    }
 
     validateToken();
   }, []);

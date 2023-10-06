@@ -5,14 +5,12 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import FormikInput from '../../Components/FormikInput';
 import UserService from '../../Services/UserService';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-
-const userService = new UserService();
+import { Link } from 'react-router-dom';
+import Navbar from '../../Components/Navbar';
 
 function Login() {
   const [onQuery, setOnQuery] = useState(false);
-  const navigate = useNavigate();
+  const userService = UserService();
 
   const formik = useFormik({
     initialValues: {
@@ -25,17 +23,8 @@ function Login() {
     }),
     onSubmit: async (values) => {
       setOnQuery(true);
-      try {
-        const response = await userService.login(values);
-        if (response) {
-          toast.success('Logado com sucesso!');
-          navigate('/home');
-        }
-      } catch (error) {
-        toast.error('Email ou senha inválidos');
-      } finally {
-        setOnQuery(false);
-      }
+      await userService.login(values);
+      setOnQuery(false);
     },
   });
 
@@ -50,7 +39,7 @@ function Login() {
         <Welcome>
           <h2>Bem-vindo! 👋🏻</h2>
           <p>Não possui uma conta?</p>
-          <a>Cadastre-se!</a>
+          <Link to={'/cadastro'}>Cadastre-se!</Link>
         </Welcome>
         <FormikInput
           name='email'

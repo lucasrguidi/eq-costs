@@ -45,6 +45,13 @@ export const Welcome = styled.div`
     font-size: 0.8rem;
     text-decoration: underline;
   }
+
+  a,
+  a:visited,
+  a:hover,
+  a:active {
+    color: inherit;
+  }
 `;
 
 export const Button = styled.button`

@@ -25,6 +25,10 @@ export const Form = styled.form`
   width: 100%;
   max-width: 30rem;
   gap: 1rem;
+
+  @media (max-width: 500px) {
+    padding: 2rem;
+  }
 `;
 
 export const Welcome = styled.div`
@@ -44,6 +48,13 @@ export const Welcome = styled.div`
   a {
     font-size: 0.8rem;
     text-decoration: underline;
+  }
+
+  a,
+  a:visited,
+  a:hover,
+  a:active {
+    color: inherit;
   }
 `;
 
