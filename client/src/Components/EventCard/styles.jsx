@@ -2,15 +2,14 @@ import styled from 'styled-components';
 
 export const CardContainer = styled.div`
   width: 100%;
-  height: 200px;
+  height: fit-content;
   border-radius: 5px;
   background: white;
-  padding: 2em;
+  padding: 1em;
   display: flex;
   align-items: center;
 
   @media (max-width: 1000px) {
-    height: 200px;
     gap: 1em;
     padding: 1em;
     /* flex-direction: column-reverse; */

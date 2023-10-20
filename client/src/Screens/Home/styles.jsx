@@ -59,7 +59,7 @@ export const Events = styled.div`
   flex-direction: column;
   height: 100%;
   width: 100%;
-  padding: 1em 2em;
+  padding: 1em;
   align-items: center;
   background: #f6f6f6;
   border-radius: 5px;

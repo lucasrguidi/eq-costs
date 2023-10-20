@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 export const RequireAuth = ({ children }) => {
   const navigate = useNavigate();
   const userService = UserService();
-  const { setUser } = useContext(AuthContext);
+  const { setUser, setSigned } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
 
   const validateToken = async () => {
@@ -15,10 +15,12 @@ export const RequireAuth = ({ children }) => {
     try {
       const userData = await userService.validateToken(localStorage.getItem('access_token'));
       if (userData) {
-        setUser({
-          name: userData.name,
+        setUser((prev) => ({
+          ...prev,
+          username: userData.username,
           email: userData.email,
-        });
+        }));
+        setSigned(true);
       }
     } catch (error) {
       navigate('/login');
@@ -30,11 +32,12 @@ export const RequireAuth = ({ children }) => {
 
   useEffect(() => {
     if (!localStorage.getItem('access_token')) {
+      setSigned(false);
       return navigate('/login');
     }
 
     validateToken();
   }, []);
-
+  console.log(children);
   return loading ? <div>Carregando...</div> : children;
 };

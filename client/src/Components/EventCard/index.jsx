@@ -1,14 +1,22 @@
 import React from 'react';
-import { Button, CardContainer, ImgContainer, TextContainer } from './styles';
+import { Button, CardContainer, TextContainer } from './styles';
+import { useNavigate } from 'react-router-dom';
 
-function EventCard({ name, description, admin }) {
+function EventCard({ event }) {
+  const { id, name, description, admin } = event;
+  const navigate = useNavigate();
+
+  const handleSeeExpenses = () => {
+    navigate(`/events/${id}`);
+  };
+
   return (
     <CardContainer>
       <TextContainer>
         <h1>{name}</h1>
         <p>{description}</p>
         <p>Criador: {admin}</p>
-        <Button>Ver gastos</Button>
+        <Button onClick={handleSeeExpenses}>Ver gastos</Button>
       </TextContainer>
     </CardContainer>
   );

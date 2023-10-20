@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Footer from '../../Components/Footer';
 import Navbar from '../../Components/Navbar';
 import SearchInput from '../../Components/SearchInput';
@@ -15,11 +15,14 @@ import EventCard from '../../Components/EventCard';
 import EventsService from '../../Services/EventsService';
 import Modal from '../../Components/Modal';
 import ModalNewEvent from './Utils/ModalNewEvent';
+import { AuthContext } from '../../Context/AuthContext';
 
 const Home = () => {
   const [events, setEvents] = useState([]);
   const [search, setSearch] = useState('');
   const [modalNewEventIsOpen, setModalNewEventIsOpen] = useState(false);
+
+  const authContext = useContext(AuthContext);
 
   const eventsService = EventsService();
 
@@ -53,14 +56,7 @@ const Home = () => {
           </MenuBar>
           <Events>
             {filteredEvents.length > 0 ? (
-              filteredEvents.map((event) => (
-                <EventCard
-                  key={event.id}
-                  name={event.name}
-                  description={event.description}
-                  admin={event.admin}
-                />
-              ))
+              filteredEvents.map((event) => <EventCard key={event.id} event={event} />)
             ) : (
               <NoEventsFound>Nenhum evento encontrado</NoEventsFound>
             )}

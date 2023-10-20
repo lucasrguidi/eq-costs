@@ -25,11 +25,11 @@ model Events {
   description String?       @db.VarChar(255)
   admin_id    Int
   admin       Users         @relation(fields: [admin_id], references: [id])
-  spends      Spends[]
+  expenses    Expenses[]
   User_Event  User_Events[]
 }
 
-model Spends {
+model Expenses {
   id          Int     @id @default(autoincrement())
   title       String  @db.VarChar(30)
   description String? @db.VarChar(255)

@@ -8,20 +8,22 @@ import { AuthProvider } from './Context/AuthContext';
 function App() {
   return (
     <>
-      <GlobalStyle />
-      <ToastContainer
-        position='top-right'
-        autoClose={2500}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        transition={Slide}
-      />
-      <AppRoutes />
+      <AuthProvider>
+        <GlobalStyle />
+        <ToastContainer
+          position='top-right'
+          autoClose={2500}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          transition={Slide}
+        />
+        <AppRoutes />
+      </AuthProvider>
     </>
   );
 }

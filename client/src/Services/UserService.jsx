@@ -1,18 +1,22 @@
 import axios from 'axios';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../Context/AuthContext';
 
 const UserService = () => {
   const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_URL_AUTH,
   });
 
+  const { user, setUser, signed, setSigned } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const login = async (formData) => {
     try {
       const response = await axiosInstance.post('/login', formData);
       localStorage.setItem('access_token', response.data.access_token);
+      setSigned(true);
       toast.success(response.data.message);
       navigate('/home');
     } catch (error) {
@@ -44,6 +48,7 @@ const UserService = () => {
       if (error.response && error.response.status === 401) {
         toast.error(error.response.data.error);
         localStorage.removeItem('access_token');
+        setSigned(false);
         navigate('./login');
         return false;
       }
