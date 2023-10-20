@@ -22,8 +22,26 @@ const EventsService = () => {
     }
   };
 
+  const createEvent = async (formData) => {
+    try {
+      const token = localStorage.getItem('access_token');
+
+      const response = await axiosInstance.post('', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success(response.data.message);
+      return true;
+    } catch (error) {
+      toast.error(error.response.data.error);
+      return false;
+    }
+  };
+
   return {
     loadEvents,
+    createEvent,
   };
 };
 

@@ -58,9 +58,11 @@ class EventController {
       });
     }
 
-    const newEvent = await EventsRepository.create(name, description, admin);
+    await EventsRepository.create(name, description, admin);
 
-    res.json(newEvent);
+    res.status(200).json({
+      message: 'Evento criado com sucesso!',
+    });
   }
 
   async update(req: Request, res: Response) {

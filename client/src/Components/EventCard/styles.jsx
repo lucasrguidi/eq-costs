@@ -23,6 +23,10 @@ export const TextContainer = styled.div`
   flex-direction: column;
   gap: 1em;
 
+  p {
+    white-space: break-spaces;
+  }
+
   @media (max-width: 1000px) {
     h1 {
       font-size: 1em;

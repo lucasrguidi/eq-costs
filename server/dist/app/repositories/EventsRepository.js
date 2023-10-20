@@ -53,6 +53,7 @@ var EventsRepository = /** @class */ (function () {
                             select: {
                                 event: {
                                     select: {
+                                        id: true,
                                         name: true,
                                         description: true,
                                         admin_id: true,
@@ -69,6 +70,7 @@ var EventsRepository = /** @class */ (function () {
                         events = _a.sent();
                         return [2 /*return*/, events.map(function (userEvent) {
                                 return {
+                                    id: userEvent.event.id,
                                     name: userEvent.event.name,
                                     description: userEvent.event.description,
                                     admin: userEvent.event.admin.username,

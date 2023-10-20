@@ -13,10 +13,14 @@ import {
 } from './styles';
 import EventCard from '../../Components/EventCard';
 import EventsService from '../../Services/EventsService';
+import Modal from '../../Components/Modal';
+import ModalNewEvent from './Utils/ModalNewEvent';
 
 const Home = () => {
   const [events, setEvents] = useState([]);
   const [search, setSearch] = useState('');
+  const [modalNewEventIsOpen, setModalNewEventIsOpen] = useState(false);
+
   const eventsService = EventsService();
 
   useEffect(() => {
@@ -40,10 +44,12 @@ const Home = () => {
     <Container>
       <Navbar />
       <MainContainer>
+        {modalNewEventIsOpen && <ModalNewEvent setModal={setModalNewEventIsOpen} />}
+
         <EventsContainer>
           <MenuBar>
             <SearchInput placeholder='Buscar evento' type='text' onChange={handleSearch} />
-            <Button>Novo evento</Button>
+            <Button onClick={() => setModalNewEventIsOpen(true)}>Novo evento</Button>
           </MenuBar>
           <Events>
             {filteredEvents.length > 0 ? (
