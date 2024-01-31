@@ -84,6 +84,15 @@ class ExpensesRepository {
 
     return updatedExpense;
   }
+
+  async delete(id: number) {
+    const deleteExpense = await this.prisma.expenses.delete({
+      where: {
+        id,
+      },
+    });
+    return deleteExpense;
+  }
 }
 
 export default new ExpensesRepository();

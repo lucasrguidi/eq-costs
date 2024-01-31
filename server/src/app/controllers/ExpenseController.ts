@@ -111,6 +111,29 @@ class ExpenseController {
 
     res.json(updatedExpense);
   }
+
+  async delete(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const userId = await UserHelper.getUserIdByToken(req, res);
+
+    if (!userId)
+      return res.status(404).json({
+        error: `Você não tem permissão para executar essa ação`,
+      });
+
+    const expense = await ExpensesRepository.findById(+id);
+
+    if (expense?.user_id !== userId) {
+      return res.status(404).json({
+        error: `Somente o usuário que cadastrou a despesa pode deletá-la`,
+      });
+    }
+
+    await ExpensesRepository.delete(+id);
+
+    res.sendStatus(204);
+  }
 }
 
 export default new ExpenseController();
