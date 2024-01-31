@@ -3,8 +3,10 @@ import { Prisma, PrismaClient } from '@prisma/client';
 interface Expense {
   id?: number;
   title: string;
+  description: string;
   amount: any;
   eventId?: number;
+  userId: number;
 }
 
 class ExpensesRepository {
@@ -14,7 +16,7 @@ class ExpensesRepository {
     this.prisma = new PrismaClient();
   }
 
-  async findAll(eventId: number): Promise<Expense[]> {
+  async findAll(eventId: number) {
     const expenses = await this.prisma.expenses.findMany({
       where: {
         event_id: eventId,
@@ -29,6 +31,28 @@ class ExpensesRepository {
         amount: expense.amount,
       };
     });
+  }
+
+  async create(title: string, description: string, amount: any, eventId: number, userId: number) {
+    const expense: Prisma.ExpensesCreateInput = {
+      title,
+      description,
+      amount,
+      event: {
+        connect: {
+          id: eventId,
+        },
+      },
+      user: {
+        connect: {
+          id: userId,
+        },
+      },
+    };
+
+    const newExpense = await this.prisma.expenses.create({ data: expense });
+
+    return newExpense;
   }
 }
 

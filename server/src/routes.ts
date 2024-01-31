@@ -32,6 +32,9 @@ router.delete('/events/:id', EventController.delete); // Excluir evento
 router.post('/events/:id/join', EventController.join); // Entrar em um evento
 
 // Expenses
-router.use('/expenses/:eventId', ExpenseController.index); // Visualizar todos as despesas daquele evento
+router.use('/expenses', validateJWT); // Verifica a validade do Token JWT
+
+router.get('/expenses/:eventId', ExpenseController.index); // Visualizar todos as despesas daquele evento
+router.post('/expenses/:eventId', ExpenseController.store); // Cadastrar nova despesa em um evento
 
 export default router;
