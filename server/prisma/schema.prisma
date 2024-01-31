@@ -17,6 +17,7 @@ model Users {
   updatedAt   DateTime      @updatedAt
   User_Events User_Events[]
   Events      Events[]
+  Expenses    Expenses[]
 }
 
 model Events {
@@ -35,7 +36,9 @@ model Expenses {
   description String? @db.VarChar(255)
   amount      Decimal @db.Decimal(10, 2)
   event_id    Int
+  user_id     Int
   event       Events  @relation(fields: [event_id], references: [id])
+  user        Users   @relation(fields: [user_id], references: [id])
 }
 
 model User_Events {
