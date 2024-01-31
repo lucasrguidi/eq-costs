@@ -5,6 +5,7 @@ import UserController from './app/controllers/UserController';
 
 import EventController from './app/controllers/EventController';
 import { validateJWT } from './app/middleware/authJwt';
+import ExpenseController from './app/controllers/ExpenseController';
 
 const router = Router();
 
@@ -29,5 +30,8 @@ router.post('/events', EventController.store); // Criar novo evento
 router.put('/events/:id', EventController.update); // Atualizar dados do evento
 router.delete('/events/:id', EventController.delete); // Excluir evento
 router.post('/events/:id/join', EventController.join); // Entrar em um evento
+
+// Expenses
+router.use('/expenses/:eventId', ExpenseController.index); // Visualizar todos as despesas daquele evento
 
 export default router;

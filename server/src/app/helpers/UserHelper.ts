@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { config } from '../config/auth.config';
+import EventsRepository from '../repositories/EventsRepository';
 
 class UserHelper {
   async getUserIdByToken(req: Request, res: Response): Promise<number | undefined> {
@@ -21,6 +22,12 @@ class UserHelper {
         }
       });
     });
+  }
+
+  async isUserInEvent(userId: number, eventId: number): Promise<boolean> {
+    const isUserInEvent = (await EventsRepository.getEventMembers(eventId)).some((members) => members.id === userId);
+
+    return isUserInEvent;
   }
 }
 
