@@ -36,5 +36,6 @@ router.use('/expenses', validateJWT); // Verifica a validade do Token JWT
 
 router.get('/expenses/:eventId', ExpenseController.index); // Visualizar todos as despesas daquele evento
 router.post('/expenses/:eventId', ExpenseController.store); // Cadastrar nova despesa em um evento
+router.put('/expenses/:id', ExpenseController.update); // Atualizar dados de uma despesa
 
 export default router;

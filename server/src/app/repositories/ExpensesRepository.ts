@@ -6,7 +6,7 @@ interface Expense {
   description: string;
   amount: any;
   eventId?: number;
-  userId: number;
+  userId?: number;
 }
 
 class ExpensesRepository {
@@ -53,6 +53,36 @@ class ExpensesRepository {
     const newExpense = await this.prisma.expenses.create({ data: expense });
 
     return newExpense;
+  }
+
+  async findById(id: number) {
+    const expense = await this.prisma.expenses.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        amount: true,
+        event_id: true,
+        user_id: true,
+      },
+    });
+
+    return expense;
+  }
+
+  async update(id: number, { title, description, amount }: Expense) {
+    const data = { title, description, amount };
+    const updatedExpense = await this.prisma.expenses.update({
+      where: {
+        id,
+      },
+      data,
+    });
+
+    return updatedExpense;
   }
 }
 

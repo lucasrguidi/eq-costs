@@ -88,6 +88,29 @@ class ExpenseController {
       message: 'Despesada cadastrada com sucesso!',
     });
   }
+
+  async update(req: Request, res: Response) {
+    const { id } = req.params;
+    const { title, description, amount } = req.body;
+    const userId = await UserHelper.getUserIdByToken(req, res);
+
+    if (!userId)
+      return res.status(404).json({
+        error: `Você não tem permissão para executar essa ação`,
+      });
+
+    const expense = await ExpensesRepository.findById(+id);
+
+    if (expense?.user_id !== userId) {
+      return res.status(404).json({
+        error: `Somente o usuário que cadastrou a despesa pode edita-la`,
+      });
+    }
+
+    const updatedExpense = await ExpensesRepository.update(+id, { title, description, amount });
+
+    res.json(updatedExpense);
+  }
 }
 
 export default new ExpenseController();
