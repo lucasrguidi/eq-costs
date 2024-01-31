@@ -25,7 +25,7 @@ model Events {
   description String?       @db.VarChar(255)
   admin_id    Int
   admin       Users         @relation(fields: [admin_id], references: [id])
-  expenses    Expenses[]
+  Expenses    Expenses[]
   User_Event  User_Events[]
 }
 
