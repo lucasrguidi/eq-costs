@@ -7,7 +7,7 @@ function EventCard({ event }) {
   const navigate = useNavigate();
 
   const handleSeeExpenses = () => {
-    navigate(`/events/${id}`);
+    navigate(`/event/${id}`);
   };
 
   return (

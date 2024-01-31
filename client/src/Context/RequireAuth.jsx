@@ -38,6 +38,5 @@ export const RequireAuth = ({ children }) => {
 
     validateToken();
   }, []);
-  console.log(children);
   return loading ? <div>Carregando...</div> : children;
 };

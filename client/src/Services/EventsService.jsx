@@ -39,9 +39,25 @@ const EventsService = () => {
     }
   };
 
+  const loadEventDetails = async (id) => {
+    try {
+      const token = localStorage.getItem('access_token');
+
+      const { data } = await axiosInstance.get(`/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return data;
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  };
+
   return {
     loadEvents,
     createEvent,
+    loadEventDetails,
   };
 };
 
